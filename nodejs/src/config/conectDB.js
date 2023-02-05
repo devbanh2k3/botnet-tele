@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize');
 
 // Option 1: Passing parameters separately
-const sequelize = new Sequelize('tbl_databot', 'root', null, {
+const sequelize = new Sequelize('tbl_databot', 'root', "12345678", {
     host: 'localhost',
     dialect: 'mysql',
     logging: false
