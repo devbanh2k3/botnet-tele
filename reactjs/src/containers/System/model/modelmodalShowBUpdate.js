@@ -12,7 +12,7 @@ class modalShowBUpdate extends Component {
             records2: [],
             currentPage: 1,
             totalPages: 1,
-            limit: 1,
+            limit: 15,
             count: 0,
         }
     }
@@ -106,7 +106,7 @@ class modalShowBUpdate extends Component {
                                             <td>{item.uid}</td>
                                             <td>{item.countaccount}</td>
                                             <td>{item.Ideal}</td>
-                                            <td>{item.status}</td>
+                                            <td>{item.status} ({item.update})</td>
                                             <td>{item.pickdate}</td>
                                             <td>{item.country}</td>
                                             <td>{item.ip}</td>

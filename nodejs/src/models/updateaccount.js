@@ -29,8 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     Ideal: DataTypes.STRING,
     status: DataTypes.STRING,
     pickdate: DataTypes.STRING,
-    country:DataTypes.STRING,
-    ip:DataTypes.STRING,
+    country: DataTypes.STRING,
+    ip: DataTypes.STRING,
+    update: DataTypes.TINYINT,
   }, {
     sequelize,
     modelName: 'updateaccount',

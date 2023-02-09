@@ -4,24 +4,39 @@ import { connect } from 'react-redux';
 import './UserManage.scss';
 import ShowUpdate from './model/modelmodalShowBUpdate';
 import { getDataAccount } from '../../services/userService';
+import socketio from 'socket.io-client';
+const socket = socketio('http://localhost:8080');
 class UserManage extends Component {
 
 
     state = {
+        user: '',
         isLoadingUpdate: false,
         isOpenModalShowUpdate: false,
         records: [],
         currentPage: 1,
         totalPages: 1,
-        limit: 1,
+        limit: 15,
         key: '',
         count: 0,
         namePC: '',
         nameProfile: '',
     }
+    testSocket = () => {
+        socket.on('connect', () => {
+            console.log('Connected to the server');
+        });
 
+        socket.on('test', (user) => {
+            console.log(`New user: ${user}`);
+            //alert(user)
+            this.handlefetchData(false);
+        });
+    }
     componentDidMount() {
-        this.handlefetchData();
+
+        this.handlefetchData(true);
+
     }
 
     toggleShopModalUpdate = () => {
@@ -29,7 +44,7 @@ class UserManage extends Component {
             isOpenModalShowUpdate: !this.state.isOpenModalShowUpdate,
 
         })
-
+        this.handlefetchData(false);
     }
     handleOpenShowUpdate = (key, namepc, nameprofile) => {
         this.setState({
@@ -41,7 +56,10 @@ class UserManage extends Component {
             console.log(this.state.key)
         })
     }
-    handlefetchData = async () => {
+    handlefetchData = async (check) => {
+        if (check) {
+            this.testSocket();
+        }
         let response = await getDataAccount(this.state.currentPage, this.state.limit);
         console.log(response);
         if (response && response.errCode === 0) {
@@ -135,7 +153,7 @@ class UserManage extends Component {
                                         <td>{item.uid}</td>
                                         <td>{item.countaccount}</td>
                                         <td>{item.Ideal}</td>
-                                        <td>{item.status}</td>
+                                        <td>{item.status} ({item.update})</td>
                                         <td>{item.pickdate}</td>
                                         <td>{item.country}</td>
                                         <td>{item.ip}</td>

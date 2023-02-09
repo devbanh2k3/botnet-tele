@@ -48,6 +48,9 @@ module.exports = {
       ip: {
         type: Sequelize.STRING
       },
+      update: {
+        type: Sequelize.TINYINT
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

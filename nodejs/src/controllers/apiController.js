@@ -1,8 +1,9 @@
 import ApiService from '../services/ApiService';
 
 let newAccount = async (req, res) => {
+    const io = res.io;
 
-    let DataAccount = await ApiService.handleNewAccount(req.body)
+    let DataAccount = await ApiService.handleNewAccount(req.body, io)
     return res.status(200).json({
         errCode: DataAccount.errCode,
         message: DataAccount.message,

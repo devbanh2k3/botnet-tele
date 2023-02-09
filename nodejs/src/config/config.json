@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
+    "username": "test",
     "password": "12345678",
     "database": "tbl_databot",
-    "host": "127.0.0.1",
+    "host": "103.169.34.2",
     "dialect": "mysql",
     "logging": false,
     "force": true
