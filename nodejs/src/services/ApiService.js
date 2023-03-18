@@ -1,5 +1,5 @@
 import db from '../models/index';
-
+var request = require('request');
 
 let handleNewAccount = (data, io) => {
     return new Promise(async (resolve, reject) => {
@@ -172,9 +172,117 @@ let getAccountWhrer = (params) => {
         }
     })
 }
+let deleteUserById = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.allaccount.findOne({
+                where: { key: userId }
+            })
+            if (user) {
+                await user.destroy();
+                resolve('done');
+            }
+            else {
+                resolve('no done');
+            }
+
+
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+let get_formula_data = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            var options = {
+                'method': 'POST',
+                'url': 'https://www.hackbcr.com/get_formula_data',
+                'headers': {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Cookie': '_ga=GA1.1.771764865.1679073686; _ga_7YQ9ZVWY3D=GS1.1.1679073685.1.1.1679074089.0.0.0; XSRF-TOKEN=eyJpdiI6Ik5aTHVxTGVVSzQydUpwN0xvbVppWUE9PSIsInZhbHVlIjoiVmFEMUx3VVcwem9nQ1A0MDlZTzUweE4wdWZPY1RIc0lxUkVuM3l2dVpzNVhIcU5sa0VFZ05rTGtlWWVJVUhLOWEzUEx6N1pUdjZuMzZZUVkzT0FScjVSQkNaZU01ai9FY05oTVhmQTBicm5aek8xWXh5T2JoMHZCRXFDdDBiK3YiLCJtYWMiOiJiNzU0ZjRhYjFlYzE0OGY4NTExZTc4ZDlkZjUxM2I5YjFjNDljNmIxYTRmMWE3NmJkZTc2ZGUwOGY1MWExYWJjIn0=; hackbcr_session=eyJpdiI6ImxFMkllQk1sTlg5QmdXL2xPTnRPaXc9PSIsInZhbHVlIjoidktRaTBXYytydUQ1a3l2MnRIWlhjLzNrL2tWTitRZXNMKzBOOGJxYVl4SkFaVVpwVkhSdVZSTUZFSnhzV2prV1hVK0ZjUFNBQ1B6cDg0WURITW5UeU9NTzFvNnRiU0pmZG96T0tOS2hPVTFOdi9MdDhqMGp5bGJ5NmRLZmp3d24iLCJtYWMiOiJmODIyZGJhNzc3ODRlMDM0MWNlMzUwNmNhYTFmNWMzZWQ4M2YyODU0YzBlYjA5NDlkMmMxZWRjYTI5YjQwZGY0In0=',
+                    'X-CSRF-TOKEN': 'YODpVjqu9AWLDRQxcoBmSvT3rZLI7jleXxG3qbaY'
+                },
+                form: {
+                    'url': 'sagaming'
+                }
+            };
+            request(options, async function (error, response) {
+                if (error) throw new Error(error);
+                console.log(response.body);
+                await resolve(response.body);
+            });
+
+            //resolve('no done');
+
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+let getresult = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            var options = {
+                'method': 'POST',
+                'url': 'https://www.hackbcr.com/baccarat/getresult',
+                'headers': {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Cookie': '_ga=GA1.1.771764865.1679073686; _ga_7YQ9ZVWY3D=GS1.1.1679073685.1.1.1679074089.0.0.0; XSRF-TOKEN=eyJpdiI6Ik5aTHVxTGVVSzQydUpwN0xvbVppWUE9PSIsInZhbHVlIjoiVmFEMUx3VVcwem9nQ1A0MDlZTzUweE4wdWZPY1RIc0lxUkVuM3l2dVpzNVhIcU5sa0VFZ05rTGtlWWVJVUhLOWEzUEx6N1pUdjZuMzZZUVkzT0FScjVSQkNaZU01ai9FY05oTVhmQTBicm5aek8xWXh5T2JoMHZCRXFDdDBiK3YiLCJtYWMiOiJiNzU0ZjRhYjFlYzE0OGY4NTExZTc4ZDlkZjUxM2I5YjFjNDljNmIxYTRmMWE3NmJkZTc2ZGUwOGY1MWExYWJjIn0=; hackbcr_session=eyJpdiI6ImxFMkllQk1sTlg5QmdXL2xPTnRPaXc9PSIsInZhbHVlIjoidktRaTBXYytydUQ1a3l2MnRIWlhjLzNrL2tWTitRZXNMKzBOOGJxYVl4SkFaVVpwVkhSdVZSTUZFSnhzV2prV1hVK0ZjUFNBQ1B6cDg0WURITW5UeU9NTzFvNnRiU0pmZG96T0tOS2hPVTFOdi9MdDhqMGp5bGJ5NmRLZmp3d24iLCJtYWMiOiJmODIyZGJhNzc3ODRlMDM0MWNlMzUwNmNhYTFmNWMzZWQ4M2YyODU0YzBlYjA5NDlkMmMxZWRjYTI5YjQwZGY0In0=',
+                    'X-CSRF-TOKEN': 'YODpVjqu9AWLDRQxcoBmSvT3rZLI7jleXxG3qbaY'
+                },
+                form: {
+                    'url': 'sagaming'
+                }
+            };
+            request(options, async function (error, response) {
+                if (error) throw new Error(error);
+                console.log(response.body);
+                await resolve(response.body);
+            });
+
+            //resolve('no done');
+
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let Check_login = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            var options = {
+                'method': 'POST',
+                'url': 'https://www.hackbcr.com/check_login',
+                'headers': {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Cookie': 'XSRF-TOKEN=eyJpdiI6InIxMll3a1hCaU9jbjNNWnZwbWN4Y0E9PSIsInZhbHVlIjoiZ0lldEpER3FuZTB1ODNLcnFLdnc1cUlLbXBudGgrVWo3MWhjRWxTZXhsY3pTLzUwZ0pHVmdHd3NYbUd4WVBwREVseTVTMVUyQkVhS1BtemVZZlp6VlJuRDB6UGRsbE9laTdPd2locEVWVXlHdnZSeFFySGxPcWNkSklqUDh1dWciLCJtYWMiOiI0MWYyYjZlYzE1NmVmYTJhYWM5ODA4N2Y3M2Q2NjAwY2FmYjY4NjljYzMwYWE2YWUwNmMwYjc3NjdlOTQ5ZGFkIn0%3D; expires=Wed, 15-Mar-2023 19:19:40 GMT; Max-Age=7200; path=/; samesite=lax;hackbcr_session=eyJpdiI6IllweEt4NVdaR3ZTV3dHalRTVE41QWc9PSIsInZhbHVlIjoiWWNHNHllR3YxeXk2dDdmWC9DT1lUUVlYa2dpcTViMkVFMzNNWnpuWFFDWEM4WlBwVkdMTFN3MW1hbzRKTWVqWnBxelJSZ3JPZDhUZHdqYllRQ283VG85VU5DdjloZllVYTI1b2JUcjcra1Y2S3JuRzNrL0RZQTFGakQ1MjhyQXQiLCJtYWMiOiIxNTdlZjNjMmYyZmIzYmZjYzdiYzkxMTU5ZWYwNjY5OTZiZjg2NDJjNWU4ZmZmNGNhM2FjMmE1MDgwYTNiZTM3In0%3D; expires=Wed, 15-Mar-2023 19:19:40 GMT; Max-Age=7200; path=/; httponly; samesite=lax',
+                    'X-CSRF-TOKEN': '2QmP8AHJrsplbbo1xd5GRH8veHI8Qs1O6EtRLxOH'
+                },
+                form: {
+                    'url': 'sagaming'
+                }
+            };
+            request(options, function (error, response) {
+                if (error) throw new Error(error);
+                console.log(response.body);
+                resolve(response.body);
+            });
+
+            //resolve('no done');
+
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
 
 module.exports = {
+    deleteUserById: deleteUserById,
     handleNewAccount: handleNewAccount,
     getAllAccount: getAllAccount,
-    getAccountWhrer: getAccountWhrer
+    getAccountWhrer: getAccountWhrer,
+    get_formula_data: get_formula_data,
+    getresult: getresult
 }

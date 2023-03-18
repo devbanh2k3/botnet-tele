@@ -32,17 +32,40 @@ let getAccountKey = async (req, res) => {
     })
 }
 // tạo api phân trang
-let updateAccount = async (req, res) => {
-    const page = parseInt(req.params.page, 10) || 1;
-    const limit = parseInt(req.params.limit, 10) || 10;
-    const offset = (page - 1) * limit;
+let deleteaccount = async (req, res) => {
+    console.log(req.params);
+    let DataAccount = await ApiService.deleteUserById(req.params.key)
+    return res.status(200).json({
+
+        message: DataAccount
+
+    })
+
+
+}
+
+
+let get_formula_data = async (req, res) => {
+    let DataAccount = await ApiService.get_formula_data()
+    return res.status(200).send(DataAccount)
+
+
+}
+
+let getresult = async (req, res) => {
+    let DataAccount = await ApiService.getresult()
+    return res.status(200).send(DataAccount)
+
 
 
 
 }
+
 module.exports = {
+    getresult: getresult,
+    deleteaccount: deleteaccount,
     getAccountKey: getAccountKey,
     newAccount: newAccount,
     getAccount: getAccount,
-
+    get_formula_data: get_formula_data,
 }

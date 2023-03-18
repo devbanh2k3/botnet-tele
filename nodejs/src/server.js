@@ -32,11 +32,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 viewEngine(app);
 initWebRoutes(app);
 
-connectDB();
+//connectDB();
 
 
 
-let port = process.env.PORT || 8080;  //Port === undefined => Port = 6060
+let port = process.env.PORT || 8900;  //Port === undefined => Port = 6060
 
 server.listen(port, () => {
     //callback
